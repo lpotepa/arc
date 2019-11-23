@@ -31,14 +31,14 @@ end
     end
   end
 
-  def new(%{filename: filename, binary: binary}) do
-    %Arc.File{binary: binary, file_name: Path.basename(filename)}
+  def new(%{filename: filename, binary: binary, type: type}) do
+    %Arc.File{binary: binary, file_name: Path.basename(filename), type: type}
   end
 
   # Accepts a map conforming to %Plug.Upload{} syntax
-  def new(%{filename: filename, path: path}) do
+  def new(%{filename: filename, path: path, type: type}) do
     case File.exists?(path) do
-      true -> %Arc.File{path: path, file_name: filename}
+      true -> %Arc.File{path: path, file_name: filename, type: type}
       false -> {:error, :invalid_file_path}
     end
   end
